@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+    <form>
+    <fieldset>
+        <legend>Player 1:</legend>
+     <header>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nome</th>
+                    <th>nome_imagem</th>
+                </tr>
+            </thead>
+            <tbody id="jogadores"></tbody>
+            </tbody>
+        </section>
+        </table>
+    </fieldset>
+    </form>
+        <section><br>
+            <form>
+            <fieldset>
+              <legend>Player 2:</legend>
+                <header>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>nome</th>
+                            <th>nome_imagem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jogadores2"></tbody>
+                    </tbody>
+                 </table>
+             </fieldset>
+            </form>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>   
+        <script src="util.js"></script>
+        <script>
+            // proteção para não executar o javascript antes do documento estar pronto
+            $(function () {
+    
+                // chamadas à função genérica
+                // nome_classe, nome_div, lista_campos, elemento_html, html_antes, html_depois
+                listagem_generica("Jogador", "jogadores", ['id', 'nome', 'nome_imagem'], "<tr>", "<td>", "</td>");
+                listagem_generica("Jogador2", "jogadores2", ['id', 'nome', 'nome_imagem'], "<tr>", "<td>", "</td>");
+                
+            });
+        </script>
+    
+</body>
+</html>
