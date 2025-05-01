@@ -2,7 +2,7 @@ from backend.config.config import *
 
 caminho = os.path.dirname(os.path.abspath(__file__))
 
-class Shot(pygame.sprite.Sprite):
+class Shoot(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         super().__init__()
         arquivo_imagem = os.path.join(caminho, "../../imagem/shrok.png")
