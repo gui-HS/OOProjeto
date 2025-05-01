@@ -23,6 +23,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # remover warnings
 
 db = SQLAlchemy(app) # vínculo com o SQLAlchemy
 
+#Tela do jogo
+FrameHeight = 1080
+FrameWidth = 1920
+
 # para exibir versões das bibliotecas:
 # pip3 freeze
 # para instalar requisitos:

@@ -1,3 +1,3 @@
 from backend.objetos.obstaculo import *
 
-__all__ = ['']
+__all__ = ['Obstaculo']

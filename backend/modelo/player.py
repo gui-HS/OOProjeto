@@ -1,12 +1,10 @@
 import pygame, os
-
-FrameHeight = 768
-FrameWidth = 768
+from backend.config.config import *
 
 # obter caminho de execução deste programa
 caminho = os.path.dirname(os.path.abspath(__file__))
 
-# classe JOGADOR!
+#Classe generica para jogador sem controles
 class Player(pygame.sprite.Sprite):
 
     # construtor
@@ -17,18 +15,12 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(x, y))
         self.nome = nome
         self.pontos = 0
-
  
     # verificação de teclas
     def check_keys(self):
-        # captura alguma eventual tecla que foi pressionada
-        pk = pygame.key.get_pressed()
-        # alguma tecla especial foi pressionada?
-        if pk[pygame.K_a]:
-            self.rect.x -= 2
-        if pk[pygame.K_d]:
-            self.rect.x += 2 
+        pass
 
+    #Sistema de colisao:
     def salvar_xy(self):
         self.antes_x = self.rect.x
         self.antes_y = self.rect.y
@@ -36,7 +28,7 @@ class Player(pygame.sprite.Sprite):
     def restaurar_xy(self):    
         self.rect.x = self.antes_x
         self.rect.y = self.antes_y
-
+    
     # verificar se houve alguma atualização
     # na situação do jogador
     def update(self, pg):

@@ -5,7 +5,7 @@ def run():
     print("Teste de Player:")
 
     p1 = Jogador(nome="Gabriel", nome_imagem="../../imagem/nave.png")
-    p2 = Jogador(nome="Fernando", nome_imagem="../../imagem/nave.png")
+    p2 = Jogador(nome="Fernando", nome_imagem="../../imagem/nave2.png")
     db.session.add(p1)
     db.session.add(p2)
     db.session.commit()

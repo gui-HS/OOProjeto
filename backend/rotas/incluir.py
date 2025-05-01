@@ -1,6 +1,5 @@
 from backend.config.config import *
 from backend.modelo.jogador import *
-from backend.modelo.jogador2 import *
 from backend.modelo.armas import *
 
 @app.route("/incluir/<string:classe>", methods=['post'])
@@ -10,8 +9,6 @@ def incluir(classe):
         nova = None
         if classe == "Jogador":
             nova = Jogador(**dados)
-        elif classe == "Jogador2":
-            nova = Jogador2(**dados)
         db.session.add(nova)
         db.session.commit()
         return jsonify({"resultado": "ok", "detalhes": "ok"})

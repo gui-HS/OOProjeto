@@ -1,10 +1,8 @@
 import pygame, os
+from backend.config.config import *
 
 # obter caminho de execução deste programa
 caminho = os.path.dirname(os.path.abspath(__file__))
-
-MAX_X = 800
-MAX_Y = 600
 
 # classe obstáculo
 class Obstacle(pygame.sprite.Sprite):
@@ -18,6 +16,6 @@ class Obstacle(pygame.sprite.Sprite):
 
     #atualizar a movimentação pelo ticketrate
     def update(self):
-        if (self.rect.y >= MAX_Y):
+        if (self.rect.y >= FrameHeight):
             self.rect.y = 1
         self.rect.y = self.rect.y + self.velocity_y
