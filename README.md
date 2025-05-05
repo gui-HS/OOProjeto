@@ -1,9 +1,10 @@
-![alt text](Shot'em_up_simulator.png)
+![alt text](imagem/Shot'em_up_simulator.png)
 
 ## Sobre
 ```bash
 O 'piupiu' é um simulador do gênero "Shoot 'em up".
 Seu objetivo é deduzir qual jogador alcançará 20 pontos primeiro.
+![alt text](imagem/shooterGIF.gif)
 ```
 
 ## Instalação Necessária
@@ -19,7 +20,7 @@ pip3 install flask_cors
 
 ## Estrategias
 ```bash
-Para 'alcançar os 20 pontos, os jogadores possuem 
+Para alcançar os 20 pontos, os jogadores possuem 
 diferentes estrategias de movimentação e tiro:
 
 - 1: Movimentação randomizada.

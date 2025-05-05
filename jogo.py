@@ -16,7 +16,7 @@ def escrever_texto( janela, x, y, msg, color ):
     janela.blit(text, ( x, y ) )
 
 
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()     
 FPS = 600 #Set default FPS (not working as expected)
 prev_time = time.time() #Get current time in seconds
 pygame.display.set_caption("Jogo de navizinha") #Game name
