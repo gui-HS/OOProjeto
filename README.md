@@ -1,8 +1,9 @@
-## Sobre
+![alt text](Shot'em_up_simulator.png)
 
+## Sobre
 ```bash
-O 'piupiu' é um jogo do gênero "Shoot 'em up" multiplayer.
-Seu objetivo é alcançar vinte pontos antes do seu adversário
+O 'piupiu' é um simulador do gênero "Shoot 'em up".
+Seu objetivo é deduzir qual jogador alcançará 20 pontos primeiro.
 ```
 
 ## Instalação Necessária
@@ -16,18 +17,13 @@ pip3 install flask_sqlalchemy
 pip3 install flask_cors
 ```
 
-## Controles
-
+## Estrategias
 ```bash
-**Player 1:**
-A - Mover para a esquerda
-D - Mover para a direita
-Espaço - Atirar
+Para 'alcançar os 20 pontos, os jogadores possuem 
+diferentes estrategias de movimentação e tiro:
 
-**Player 2:**
-Seta para esquerda - Mover para a esquerda
-Seta para direita - Mover para a direita
-P - Atirar
+- 1: Movimentação randomizada.
+- 2: De uma ponta à outra.
 ```
 
 ## Inserir Imagens de Obstáculos por rota de upload:
