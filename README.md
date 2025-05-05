@@ -1,4 +1,4 @@
-![alt text](imagem/Shot'em_up_simulator.png)
+![alt text](imagem/Shoot'em_up_SimulatorImage.png)
 
 ## Sobre
 ```bash
