@@ -4,8 +4,8 @@
 ```bash
 O 'piupiu' é um simulador do gênero "Shoot 'em up".
 Seu objetivo é deduzir qual jogador alcançará 20 pontos primeiro.
-![alt text](imagem/shooterGIF.gif)
 ```
+![alt text](imagem/shooterGIF.gif)
 
 ## Instalação Necessária
 
