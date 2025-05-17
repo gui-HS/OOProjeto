@@ -55,4 +55,14 @@ diferentes estrategias de movimentação e tiro:
 -Upload de arquivos
 -Obstáculos possuem imagens
 ```
+
+## Créditos
+```bash
+Musica de fundo:
+https://opengameart.org/content/nes-shooter-music-5-tracks-3-jingles
+
+Efeitos sonoros:
+https://opengameart.org/content/8-bit-sound-effects-library
+Attribute Little Robot Sound Factory, and provide this link where possible: www.littlerobotsoundfactory.com
+```
 #https://www.makeareadme.com/

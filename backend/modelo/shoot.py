@@ -9,6 +9,7 @@ class Shoot(pygame.sprite.Sprite):
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect(topleft=(x, y))
         self.velocity_y = -4 # o tiro está subindo, velocidade y negativa
+        
     def update(self):
         if (self.rect.y > 0): # se NÃO chegou no topo da tela
             self.rect.y = self.rect.y + self.velocity_y # move o tiro para cima

@@ -1,6 +1,6 @@
 from backend.config.config import *
 from backend.modelo.jogador import *
-from backend.modelo.armas import *
+from backend.modelo.shoot import *
 
 @app.route("/listar/<string:classe>")
 def listar(classe):
