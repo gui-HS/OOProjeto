@@ -4,6 +4,7 @@ from backend.modelo.shoot import *
 import random
 from backend.modelo.delay import *
 from backend.modelo.collisionObject import *
+from backend.modelo import Jogador
 
 # obter caminho de execução deste programa
 caminho = os.path.dirname(os.path.abspath(__file__))
@@ -15,8 +16,9 @@ class Player(pygame.sprite.Sprite):
     # construtor
     def __init__(self, x, y, nome, nome_imagem):
         super().__init__()
-        arquivo_imagem = os.path.join(caminho, nome_imagem)
-        self.image = pygame.image.load(arquivo_imagem)
+        #arquivo_imagem = os.path.join(caminho, nome_imagem)
+        #arquivo_imagem = nome_imagem
+        self.image = pygame.image.load(nome_imagem)
         self.rect = self.image.get_rect(topleft=(x, y))
         self.nome = nome #User's name can be found on database
         self.pontos = 0 #User points based on kills
@@ -26,7 +28,8 @@ class Player(pygame.sprite.Sprite):
         self.platform_shoot = pygame.sprite.Group()  #Set of shots created
         self.remove_shoot = [] #List to remove collided shoots
         self.delay1 = Delay()
-    
+        self.delay2 = Delay()
+
     # Tipo de jogadores:
     def check_keys(self):
         max = 1870 #MaxWidth - spriteWidth
@@ -65,7 +68,18 @@ class Player(pygame.sprite.Sprite):
 
         #Teleporter
         elif self.estrategia == 5:
-            self.rect.x = random.randint(0 , 1870)
+            if self.delay2.delay(200):
+                self.rect.x = random.randint(0 , 1870)
+
+        #Tick shooter
+        elif self.estrategia == 6:
+            if self.rect.x <= 0:
+                self.vel = self.vel*-1
+                self.rect.x = 1
+            if self.rect.x >= max:
+                self.vel = self.vel*-1
+                self.rect.x = max-1
+            self.rect.x += pygame.time.get_ticks()//100 * self.vel
 
     #Sistema de colisao:
     def salvar_xy(self):
@@ -93,9 +107,14 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom >= FrameHeight:
             self.rect.bottom = FrameHeight
     
-    def isDead(self, player, player_group):
+    def isDead(self):
         if self.lifes <= 0:
-            player_group.remove(player)
+            self.kill()
+
+            #Sound effects
+            explosion_sound = pygame.mixer.Sound("sounds/soundEffects/Explosion_00.mp3")
+            pygame.mixer.Sound.play(explosion_sound)
+            explosion_sound.set_volume(0.5)
 
     #Sistema de tiro
     def shoot(self):
@@ -104,7 +123,10 @@ class Player(pygame.sprite.Sprite):
             pass
         else:
             if self.delay1.delay(500): #Delay shots
-                self.platform_shoot.add(Shoot(self.rect.x + 16 - 5, self.rect.y, 5, 20)) # create bullet and add to the group
+                #self.platform_shoot.add(Shoot(self.rect.x + 16 - 5, self.rect.y, 5, 20)) # create bullet and add to the group
+                self.platform_shoot.add(Shoot(self.rect.x + 16 - 5, self.rect.y, 5, 20))
+
+                #Sound Effects:
                 shoot_sound = pygame.mixer.Sound("sounds/soundEffects/Shoot_01.mp3")
                 pygame.mixer.Sound.play(shoot_sound)
                 shoot_sound.set_volume(0.2)
@@ -113,11 +135,14 @@ class Player(pygame.sprite.Sprite):
     def collisionShots(self, obstacles_group):
         #Check to see if shoots colided with obstacles
         if CollisionObject().destroyBothObj(self.platform_shoot, obstacles_group):
-            self.pontos += 1 #Adds one point and remove obstacle
+            self.pontos += 1 #Adds one point
+            
  
     def collisionObstacles(self, player, obstacles_group):
         #If player colided with any obstacle, then delete obstacle and subtract player's life by one
         if CollisionObject().destroy2Obj(player, obstacles_group):
             self.lifes -= 1
+
+            #Sound Effects:
             crash_sound = pygame.mixer.Sound("sounds/soundEffects/Hit_02.mp3")
             pygame.mixer.Sound.play(crash_sound)

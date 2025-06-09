@@ -15,4 +15,3 @@ class Jogador(db.Model):
             "nome":self.nome,
             "nome_imagem":self.nome_imagem
         }
-

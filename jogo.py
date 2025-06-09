@@ -6,10 +6,11 @@ import time
 
 pygame.init()
 
-#----------------------------- Variables -----------------------------#
+#----------------------------- Variables -----------------------------# 
 
 caminho = os.path.dirname(os.path.abspath(__file__))
 font = pygame.font.SysFont(None, 25) #Letter font
+
 def escrever_texto( janela, x, y, msg, color ):
     text = font.render( msg, True, color)
     janela.blit(text, ( x, y ) )
@@ -32,18 +33,19 @@ y = 850 #Player inicial position Y
 blue = (255,255,255) #Hud color
 
 # carrega jogador do banco de dados
-jogador = db.session.query(Jogador).first()
-jogador2 = db.session.query(Jogador).filter_by(nome = "Fernando").first()
+pBlue = db.session.query(Jogador).first()
+pGreen = db.session.query(Jogador).filter_by(id = 2).first()
+pRed = db.session.query(Jogador).filter_by(id = 3).first()
 
 # cria o jogador em modelo de classe do jogo (usando os jogadores carregados anteriormente)
-player1 = Player(x, y, jogador2.nome, jogador2.nome_imagem)
-player2 = Player(x, y, jogador2.nome, jogador2.nome_imagem)
-player3 = Player(x, y, jogador2.nome, jogador2.nome_imagem)
+player1 = Player(x, y, pBlue.nome, pBlue.nome_imagem)
+player2 = Player(x, y, pGreen.nome, pGreen.nome_imagem)
+player3 = Player(x, y, pRed.nome, pRed.nome_imagem)
 
 #Set player estrategy
-player1.estrategia = 2
+player1.estrategia = 5
 player2.estrategia = 3
-player3.estrategia = 5
+player3.estrategia = 6
 
 #Create and add players to the group
 player_group = pygame.sprite.Group()
@@ -55,7 +57,7 @@ player_group.add(player3)
 running = True
 
 while running:
-    pk = pygame.key.get_pressed() 
+    pk = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False   
@@ -77,23 +79,16 @@ while running:
     if sleep_time > 0:
         time.sleep(sleep_time)
     screen.blit(bg, (0,0))
-    
-    #Iterate through all players
-    for player in player_group:
-        if player.lifes > 0:
-            player.shoot() #Shoot 
-            player.collisionShots(platform_group) #Check if shots have colided
-            player.collisionObstacles(player, platform_group) #Check if player colided with objects
-        else:
-            #If player lifes == 0, then remove from group
-            player_group.remove(player)
-            explosion_sound = pygame.mixer.Sound("sounds/soundEffects/Explosion_00.mp3")
-            pygame.mixer.Sound.play(explosion_sound)
-            explosion_sound.set_volume(0.5)
 
-    escrever_texto(screen, 10, 10, f"player1 pontos: {player1.pontos}", blue)
-    escrever_texto(screen, 210, 10, f"player2 pontos: {player2.pontos}", blue)
-    escrever_texto(screen, 410, 10, f"player3 pontos: {player3.pontos}", blue)
+    for player in player_group:
+          player.shoot() #Shoot 
+          player.collisionShots(platform_group) #Remove shots who colided with obstacles
+          player.collisionObstacles(player, platform_group) #Check if player colided with objects
+          player.isDead() #Delete player if dead
+
+    escrever_texto(screen, 10, 10, f"player1 pontos: {player1.pontos}", pygame.Color('blue'))
+    escrever_texto(screen, 210, 10, f"player2 pontos: {player2.pontos}", pygame.Color('red'))
+    escrever_texto(screen, 410, 10, f"player3 pontos: {player3.pontos}", pygame.Color('green'))
 
     player_group.draw(screen) # desenhar jogadores
     platform_group.draw(screen) # mostra os obstáculos

@@ -1,6 +1,7 @@
 import pygame
 
-#Class of relationship between two objects at collision
+#Class of relationship between two objects (from groups or not) at collision 
+#it can destroy to destroy one of them or both
 class CollisionObject:
 
     #Destroy Obj at colision with group2
@@ -23,7 +24,7 @@ class CollisionObject:
                 return True
 
         
-    #When objects from group1 and group2 collid, destroy both objects
+    #When objects from group1 and group2 collide, destroy both objects
     def destroyBothObj(self, groupObj1, groupObj2):
         #Iterate through every obj of the first group
         for obj in groupObj1:
