@@ -9,8 +9,6 @@ from backend.modelo import Jogador
 # obter caminho de execução deste programa
 caminho = os.path.dirname(os.path.abspath(__file__))
 
-
-#Classe generica para jogador sem controles
 class Player(pygame.sprite.Sprite):
 
     # construtor
@@ -119,7 +117,7 @@ class Player(pygame.sprite.Sprite):
     #Sistema de tiro
     def shoot(self):
         #Not shoot while dead
-        if self.lifes <= 0:
+        if self.isDead():
             pass
         else:
             if self.delay1.delay(500): #Delay shots
