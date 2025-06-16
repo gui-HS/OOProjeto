@@ -5,18 +5,16 @@ class ResultadoDaPartida(db.Model):
     lifes = db.Column(db.Integer) #Player's life
     strategy = db.Column(db.Integer) #Player's Strategy
     points = db.Column(db.Integer) #Player's points
-    type = db.Column(db.Integer) #Type of the match (how many players was instantiated)
 
     def __str__(self):
-        return f'{self.id}, {self.lifes}, {self.strategy}, {self.points}, {self.type}'
+        return f'{self.id}, {self.lifes}, {self.strategy}, {self.points}'
 
     def json(self):
         return {
             "id":self.id,
             "lifes":self.lifes,
             "strategy":self.strategy,
-            "points":self.points,
-            "type":self.type
+            "points":self.points
         }
 
     

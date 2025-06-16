@@ -1,10 +1,9 @@
-import pygame, os
+import pygame, os, random
 from backend.config.config import *
-from backend.modelo.shoot import *
-import random
-from backend.modelo.delay import *
-from backend.modelo.collisionObject import *
-from backend.modelo import Jogador
+from backend.modelo.Jogador import *
+from backend.modelo.Delay import *
+from backend.modelo.Shoot import *
+from backend.modelo.CollisionObject import *
 
 # obter caminho de execução deste programa
 caminho = os.path.dirname(os.path.abspath(__file__))
@@ -12,16 +11,15 @@ caminho = os.path.dirname(os.path.abspath(__file__))
 class Player(pygame.sprite.Sprite):
 
     # construtor
-    def __init__(self, x, y, nome, nome_imagem):
+    def __init__(self, x, y, playerID):
         super().__init__()
-        #arquivo_imagem = os.path.join(caminho, nome_imagem)
-        #arquivo_imagem = nome_imagem
-        self.image = pygame.image.load(nome_imagem)
+        self.playerDB = db.session.query(Jogador).filter_by(id = playerID).first()
+        self.color = self.playerDB.color #Player's color and HUD color
+        self.image = pygame.image.load("imagem\\nave" + self.color + ".png") #Load the spaceship sprite with the chosen color
         self.rect = self.image.get_rect(topleft=(x, y))
-        self.nome = nome #User's name can be found on database
-        self.pontos = 0 #User points based on kills
-        self.lifes = 3
-        self.estrategia = 1 # Default user manual mode
+        self.pontos = 0 #User points based on kills. The quantity depends on the DB estrategy points
+        self.lifes = self.playerDB.lifes
+        self.estrategia = self.playerDB.estrategia # Default user manual mode
         self.vel = 1 #Default velocity
         self.platform_shoot = pygame.sprite.Group()  #Set of shots created
         self.remove_shoot = [] #List to remove collided shoots
@@ -63,6 +61,8 @@ class Player(pygame.sprite.Sprite):
                 self.vel = self.vel*-1
                 self.rect.x = max-1
             self.rect.x += self.pontos * self.vel
+            if self.pontos == 0:
+                self.rect.x += 1 * self.vel
 
         #Teleporter
         elif self.estrategia == 5:
@@ -121,7 +121,6 @@ class Player(pygame.sprite.Sprite):
             pass
         else:
             if self.delay1.delay(500): #Delay shots
-                #self.platform_shoot.add(Shoot(self.rect.x + 16 - 5, self.rect.y, 5, 20)) # create bullet and add to the group
                 self.platform_shoot.add(Shoot(self.rect.x + 16 - 5, self.rect.y, 5, 20))
 
                 #Sound Effects:
@@ -133,7 +132,7 @@ class Player(pygame.sprite.Sprite):
     def collisionShots(self, obstacles_group):
         #Check to see if shoots colided with obstacles
         if CollisionObject().destroyBothObj(self.platform_shoot, obstacles_group):
-            self.pontos += 1 #Adds one point
+            self.pontos += self.playerDB.shotPoints #Adds points
             
  
     def collisionObstacles(self, player, obstacles_group):

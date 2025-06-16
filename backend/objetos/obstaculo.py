@@ -1,5 +1,5 @@
 import pygame
-from backend.modelo.obstaculo import *
+from backend.modelo.Obstacle import *
 
 # cria grupo de obstáculos
 platform_group = pygame.sprite.Group()
