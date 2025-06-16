@@ -52,7 +52,6 @@ class Partida:
                     if (player.pontos >= 2000000):
                         print(f"O P1 Conseguiu:{player}")
                         running = False
-            
 
             if len(player_group.sprites()) == 0 or len(platform_group.sprites()) ==0:
                 running = False

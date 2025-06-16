@@ -13,6 +13,6 @@ def obsctacleInstance():
             mx = i*50
             my = j*50
             if (i%2)==0:
-                platform_group.add(Obstacle(mx, my, "../../inimigo/tohou.png"))
+                platform_group.add(Obstacle(mx, my, "../../imagem/inimigo/tohou.png"))
             else:
-                platform_group.add(Obstacle(mx, my, "../../inimigo/tohou2.png"))
+                platform_group.add(Obstacle(mx, my, "../../imagem/inimigo/tohou2.png"))
