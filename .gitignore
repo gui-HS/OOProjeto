@@ -5,6 +5,9 @@ __pycache__/
 # Imagem de exemplo para inimigos:
 inimigo/inimigo1.png
 
+#Arquivo DB
+backend/config/teste.db
+
 # C extensions
 *.so
 
