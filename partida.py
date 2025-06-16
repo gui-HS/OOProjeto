@@ -23,8 +23,6 @@ class Partida:
 
 
         clock = pygame.time.Clock()
-        FPS = 900 #Set default FPS (not working as expected)
-        prev_time = time.time() #Get current time in seconds
         pygame.display.set_caption("Jogo de navizinha") #Game name
         screen = pygame.display.set_mode((FrameWidth,FrameHeight)) #Set width and height of screen
         bg = pygame.image.load("imagem\space4.jpg").convert() #Background Image
@@ -56,13 +54,6 @@ class Partida:
             if len(player_group.sprites()) == 0 or len(platform_group.sprites()) ==0:
                 running = False
 
-            #Limitar o FPS do jogo:
-            current_time = time.time()
-            dt = current_time - prev_time
-
-            sleep_time = 1./FPS - dt
-            if sleep_time > 0:
-                time.sleep(sleep_time)
             screen.blit(bg, (0,0))
 
             for player in player_group:
@@ -85,7 +76,6 @@ class Partida:
             platform_group.update() # movimenta todos os obstáculos
             player_group.update() # movimenta os players
             pygame.display.flip() # atualiza a tela
-            
             pygame.display.update()
 
             clock.tick(1000)
@@ -128,7 +118,7 @@ class Partida:
 
     def batalhaDB(self, player_group):
         for player2 in player_group:
-            p1  = ResultadoDaPartida.ResultadoDaPartida(lifes = player2.lifes, strategy = player2.estrategia, points = player2.pontos)
+            p1  = ResultadoDaPartida.ResultadoDaPartida(lifes = player2.lifes, strategy = player2.estrategia, shotPoints = player2.playerDB.shotPoints, points = player2.pontos)
             db.session.add(p1)
             db.session.commit()
 
