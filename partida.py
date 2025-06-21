@@ -5,7 +5,10 @@ from backend.objetos.obstaculo import *
 
 class Partida:
 
-    def partida(self, player_group):
+    def __init__(self):
+        self.match = 0
+
+    def partida(self):
         pygame.init()
         #----------------------------- Variables -----------------------------# 
         caminho = os.path.dirname(os.path.abspath(__file__))
@@ -26,36 +29,50 @@ class Partida:
         pygame.display.set_caption("Jogo de navizinha") #Game name
         screen = pygame.display.set_mode((FrameWidth,FrameHeight)) #Set width and height of screen
         bg = pygame.image.load("imagem\space4.jpg").convert() #Background Image
-        blue = (255,255,255) #Hud color
         
         #----------------------------- Main Game Loop -----------------------------#
-        running = True
         clock = pygame.time.Clock()
+        running = True
 
         screen = pygame.display.set_mode((FrameWidth,FrameHeight)) #Set width and height of screen
 
         #instanciate obstacles
         obsctacleInstance()
 
+        #instantiate match
+        player_list = self.batalha()
+
+        bla = 0
+        player_group = player_list[0]
+        
         while running:
             pk = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
-                    running = False
+                    self.running = False
             
             if (pk[pygame.K_ESCAPE]):
                 running = False
-            
-            for player in player_group:
-                    if (player.pontos >= 2000000):
-                        print(f"O P1 Conseguiu:{player}")
-                        running = False
+
+            if (pk[pygame.K_n]):
+                if  bla >= len(player_list)-1:
+                    running = False
+                else:
+                    bla += 1
+                    self.batalhaDB(player_group)
+                    player_group = player_list[bla]
+                    obsctacleInstance()
 
             if len(player_group.sprites()) == 0 or len(platform_group.sprites()) ==0:
-                running = False
+                if  bla >= len(player_list)-1:
+                    running = False
+                else:
+                    bla += 1
+                    self.batalhaDB(player_group)
+                    player_group = player_list[bla]
+                    obsctacleInstance()
 
             screen.blit(bg, (0,0))
-
             for player in player_group:
                 player.shoot() #Shoot
                 player.collisionShots(platform_group) #Remove shots who colided with obstacles
@@ -80,8 +97,29 @@ class Partida:
 
             clock.tick(1000)
 
+        scoreboard = True
+
+        while scoreboard:
+            pk = pygame.key.get_pressed()
+            for event in pygame.event.get():
+                if (event.type == pygame.QUIT):
+                    self.running = False
+            
+            if (pk[pygame.K_ESCAPE]):
+                scoreboard = False
+
+            color = (255, 192, 203)
+
+            pygame.draw.rect(bg, color, pygame.Rect(210, 100, 1500, 900))
+              
+            screen.blit(bg, (0,0))
+
+            pygame.display.flip() # atualiza a tela
+            pygame.display.update()
+
+
         pygame.quit()
-    
+        
     def formatFile(self,file):
         file = open(file)
         file = file.readlines() #Create a list by every line of the file
@@ -105,16 +143,16 @@ class Partida:
     def batalha(self):
         batalha = self.formatFile("batalhas.txt")
         player_group = pygame.sprite.Group()
+        list_matches = []
 
         for battle in batalha:
             ids = battle.split(",")
             for playerID in ids:
                 player = Player.Player(290, 850, playerID)
                 player_group.add(player)
-            self.partida(player_group)
-            self.batalhaDB(player_group)
-            player_group.empty()
-            platform_group.empty()
+            list_matches.append(player_group)
+            player_group = pygame.sprite.Group()
+        return list_matches
 
     def batalhaDB(self, player_group):
         for player2 in player_group:
@@ -129,4 +167,4 @@ class Partida:
     
 if __name__ == "__main__":
     Partida().addPlayers() #Add players to database
-    Partida().batalha() #Iniciate match based on the configuration file batalhas.txt
+    Partida().partida() #Iniciate match based on the configuration file batalhas.txt
