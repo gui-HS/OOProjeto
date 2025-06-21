@@ -1,7 +1,8 @@
-import pygame, time
+import pygame
 from backend.modelo import *
 from backend.config.config import *
 from backend.objetos.obstaculo import *
+from sqlalchemy import desc
 
 class Partida:
 
@@ -61,6 +62,7 @@ class Partida:
                     bla += 1
                     self.batalhaDB(player_group)
                     player_group = player_list[bla]
+                    platform_group.empty()
                     obsctacleInstance()
 
             if len(player_group.sprites()) == 0 or len(platform_group.sprites()) ==0:
@@ -108,17 +110,39 @@ class Partida:
             if (pk[pygame.K_ESCAPE]):
                 scoreboard = False
 
-            color = (255, 192, 203)
+            pygame.draw.rect(bg, (255, 192, 203), pygame.Rect(210, 100, 1500, 900))
 
-            pygame.draw.rect(bg, color, pygame.Rect(210, 100, 1500, 900))
-              
+
+            #Most points Column
+            self.top10Column(bg,"points",280,150)
+
+            #Most lifes Column
+            self.top10Column(bg,"lifes",820,150)
+
             screen.blit(bg, (0,0))
 
             pygame.display.flip() # atualiza a tela
             pygame.display.update()
 
-
         pygame.quit()
+
+    def top10Column(self, screen, columnName, x, y):
+        font = pygame.font.SysFont(None, 25) #Letter font
+        def escrever_texto( janela, x, y, msg, color ):
+            text = font.render( msg, True, color)
+            janela.blit(text, ( x, y ) )
+
+        #Most points Column 
+        bla = db.session.query(ResultadoDaPartida.ResultadoDaPartida).order_by(desc(getattr(ResultadoDaPartida.ResultadoDaPartida, columnName))).limit(15).all()
+        escrever_texto(screen, x, 120, f"Most {columnName}", (255,255,255))
+        
+        for resultado in bla:
+            mostrar = str(resultado).split()
+                
+            texto = "ID: " + str(mostrar[0]) + " Lifes: " + str(mostrar[1]) + " Strategy: " + str(mostrar[2]) + \
+                    " ShotPoints: " + str(mostrar[3]) + " Points: " + str(mostrar[4])
+            escrever_texto(screen, x, y, texto, (255,255,255))
+            y += 50
         
     def formatFile(self,file):
         file = open(file)
