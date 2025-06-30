@@ -61,9 +61,9 @@ class Player(pygame.sprite.Sprite):
             if self.rect.x >= max:
                 self.vel = self.vel*-1
                 self.rect.x = max-1
-            self.rect.x += (self.pontos * self.vel)//100
-            if (self.pontos)//100 == 0:
-                self.rect.x += (0.5 * self.vel)
+            self.rect.x += (self.pontos * (-self.vel))//100
+            if (self.pontos)//100 <= 0:
+                self.rect.x += (1 * (-self.vel))
 
         #Teleporter
         elif self.estrategia == 5:

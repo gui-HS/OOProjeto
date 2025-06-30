@@ -20,5 +20,5 @@ class Jogador(db.Model):
             "color":self.color,
             "pontos":self.pontos,
             "lifes":self.lifes,
-            "self.estrategia":self.estrategia
+            "estrategia":self.estrategia
         }
