@@ -5,10 +5,10 @@ from backend.modelo.Obstacle import *
 platform_group = pygame.sprite.Group()
 
 
-def obsctacleInstance():
-    #criar uma coluna de obstaculos
-    for j in range(0,1):
-        #Criar uma linha de obstaculos
+def obsctacleInstance(rows):
+    #criar uma linha de obstaculos
+    for j in range(0,rows):
+        #Instanciar a linha
         for i in range(0,38):
             mx = i*50
             my = j*50

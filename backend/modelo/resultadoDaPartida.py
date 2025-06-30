@@ -6,9 +6,10 @@ class ResultadoDaPartida(db.Model):
     strategy = db.Column(db.Integer) #Player's Strategy
     shotPoints = db.Column(db.Integer)
     points = db.Column(db.Integer) #Player's points
+    time = db.Column(db.Integer) #Match' time in seconds 
 
     def __str__(self):
-        return f'{self.id}, {self.lifes}, {self.strategy}, {self.shotPoints}, {self.points}'
+        return f'{self.id}, {self.lifes}, {self.strategy}, {self.shotPoints}, {self.points}, {self.time}'
 
     def json(self):
         return {
@@ -16,7 +17,8 @@ class ResultadoDaPartida(db.Model):
             "lifes":self.lifes,
             "strategy":self.strategy,
             "shotPoints":self.shotPoints,
-            "points":self.points
+            "points":self.points,
+            "time":self.time
         }
 
     

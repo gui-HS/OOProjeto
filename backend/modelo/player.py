@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.remove_shoot = [] #List to remove collided shoots
         self.delay1 = Delay()
         self.delay2 = Delay()
+        self.reiniciar = 0
 
     # Tipo de jogadores:
     def check_keys(self):
@@ -60,9 +61,9 @@ class Player(pygame.sprite.Sprite):
             if self.rect.x >= max:
                 self.vel = self.vel*-1
                 self.rect.x = max-1
-            self.rect.x += self.pontos * self.vel
-            if self.pontos == 0:
-                self.rect.x += 1 * self.vel
+            self.rect.x += (self.pontos * self.vel)//100
+            if (self.pontos)//100 == 0:
+                self.rect.x += (0.5 * self.vel)
 
         #Teleporter
         elif self.estrategia == 5:
@@ -77,7 +78,9 @@ class Player(pygame.sprite.Sprite):
             if self.rect.x >= max:
                 self.vel = self.vel*-1
                 self.rect.x = max-1
-            self.rect.x += pygame.time.get_ticks()//100 * self.vel
+            self.rect.x += (pygame.time.get_ticks() - self.reiniciar)*self.vel
+            if pygame.time.get_ticks() - self.reiniciar > 10:
+                self.reiniciar = pygame.time.get_ticks()
 
     #Sistema de colisao:
     def salvar_xy(self):

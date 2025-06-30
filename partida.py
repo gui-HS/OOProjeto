@@ -1,8 +1,9 @@
-import pygame
+import pygame, time
 from backend.modelo import *
 from backend.config.config import *
 from backend.objetos.obstaculo import *
 from sqlalchemy import desc
+from datetime import datetime
 
 class Partida:
 
@@ -38,15 +39,22 @@ class Partida:
         screen = pygame.display.set_mode((FrameWidth,FrameHeight)) #Set width and height of screen
 
         #instanciate obstacles
-        obsctacleInstance()
+        obsctacleInstance(1)
 
         #instantiate match
         player_list = self.batalha()
 
         bla = 0
         player_group = player_list[0]
+
+        #times
+        begin = pygame.time.get_ticks()
+        matchTime = pygame.time.get_ticks() - begin
         
         while running:
+            
+            matchTime = (pygame.time.get_ticks() - begin)//1000
+            print(matchTime//1000)
             pk = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
@@ -60,19 +68,22 @@ class Partida:
                     running = False
                 else:
                     bla += 1
-                    self.batalhaDB(player_group)
+                    #self.batalhaDB(player_group, matchTime)
                     player_group = player_list[bla]
                     platform_group.empty()
-                    obsctacleInstance()
+                    obsctacleInstance(1)
+                    begin = pygame.time.get_ticks()
 
             if len(player_group.sprites()) == 0 or len(platform_group.sprites()) ==0:
                 if  bla >= len(player_list)-1:
                     running = False
+                    self.batalhaDB(player_group, matchTime)
                 else:
                     bla += 1
-                    self.batalhaDB(player_group)
+                    self.batalhaDB(player_group, matchTime)
                     player_group = player_list[bla]
-                    obsctacleInstance()
+                    obsctacleInstance(1)
+                    begin = pygame.time.get_ticks()
 
             screen.blit(bg, (0,0))
             for player in player_group:
@@ -85,6 +96,9 @@ class Partida:
             for player in player_group:
                 escrever_texto(screen, i, 10, f"{player.playerDB.nome} pontos: {player.pontos}", pygame.Color(player.color))
                 i += 250
+
+            #Write time
+            escrever_texto(screen, 1820, 10, f"Time: {matchTime}", (255, 255, 255))
 
             for player in player_group:
                 player.platform_shoot.draw(screen) # desenhar os tiros
@@ -110,14 +124,16 @@ class Partida:
             if (pk[pygame.K_ESCAPE]):
                 scoreboard = False
 
-            pygame.draw.rect(bg, (255, 192, 203), pygame.Rect(210, 100, 1500, 900))
-
+            pygame.draw.rect(bg, (0, 0, 0), pygame.Rect(0, 0, FrameWidth, FrameHeight))
 
             #Most points Column
-            self.top10Column(bg,"points",280,150)
+            self.top10Column(bg,"points",50,150)
 
             #Most lifes Column
-            self.top10Column(bg,"lifes",820,150)
+            self.top10Column(bg,"lifes",700,150)
+
+            #Most time Column 
+            self.top10Column(bg,"time",1350,150)
 
             screen.blit(bg, (0,0))
 
@@ -127,21 +143,32 @@ class Partida:
         pygame.quit()
 
     def top10Column(self, screen, columnName, x, y):
-        font = pygame.font.SysFont(None, 25) #Letter font
+        font = pygame.font.SysFont(None, 35) #Letter font
         def escrever_texto( janela, x, y, msg, color ):
             text = font.render( msg, True, color)
             janela.blit(text, ( x, y ) )
 
-        #Most points Column 
+        #Most column name Column 
+        escrever_texto(screen, x, 120, f"Most {columnName}", (255,255,255)) #Get in decrescent order
         bla = db.session.query(ResultadoDaPartida.ResultadoDaPartida).order_by(desc(getattr(ResultadoDaPartida.ResultadoDaPartida, columnName))).limit(15).all()
-        escrever_texto(screen, x, 120, f"Most {columnName}", (255,255,255))
+
+        if columnName == "time": #GET IN CRESCENT ORDER
+            bla = db.session.query(ResultadoDaPartida.ResultadoDaPartida).order_by(getattr(ResultadoDaPartida.ResultadoDaPartida, columnName)).limit(15).all()
         
         for resultado in bla:
             mostrar = str(resultado).split()
-                
-            texto = "ID: " + str(mostrar[0]) + " Lifes: " + str(mostrar[1]) + " Strategy: " + str(mostrar[2]) + \
-                    " ShotPoints: " + str(mostrar[3]) + " Points: " + str(mostrar[4])
-            escrever_texto(screen, x, y, texto, (255,255,255))
+            
+            
+            dict = {"id":0, "lifes":1, "strategy":2, "shotPoints":3, "points":4, "time":5}
+            mostrar2 = dict[columnName]
+
+            for i in mostrar[mostrar2]:
+                print(i)
+                if ord(i) == 44: #Remove , at the end
+                    mostrar[mostrar2] = mostrar[mostrar2][:-1]
+
+            text = " player" + str(mostrar[0][:-1]) + ": " + str(mostrar[mostrar2]) + ", str: " + str(mostrar[2][:-1])
+            escrever_texto(screen, x, y, text, (255,255,255))
             y += 50
         
     def formatFile(self,file):
@@ -178,17 +205,12 @@ class Partida:
             player_group = pygame.sprite.Group()
         return list_matches
 
-    def batalhaDB(self, player_group):
+    def batalhaDB(self, player_group, time):
         for player2 in player_group:
-            p1  = ResultadoDaPartida.ResultadoDaPartida(lifes = player2.lifes, strategy = player2.estrategia, shotPoints = player2.playerDB.shotPoints, points = player2.pontos)
+            p1  = ResultadoDaPartida.ResultadoDaPartida(lifes = player2.lifes, strategy = player2.estrategia, shotPoints = player2.playerDB.shotPoints, points = player2.pontos, time = time)
             db.session.add(p1)
             db.session.commit()
 
-    '''
-    joga sozinho até haver jogadoes com vida
-    quando morrerm os bichos, aparem d novo
-    '''
-    
 if __name__ == "__main__":
     Partida().addPlayers() #Add players to database
     Partida().partida() #Iniciate match based on the configuration file batalhas.txt

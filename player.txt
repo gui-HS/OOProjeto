@@ -2,5 +2,5 @@ número id, vidas, estrategia, pontos por tiro, cor
 1, 10, 2, 20,Blue
 2, 15, 3, 15,Red
 3, 25, 4, 30,Yellow
-4, 50, 5, 20,Green
+4, 50, 5, 20,#02fffb
 5, 50, 6, 20,Pink

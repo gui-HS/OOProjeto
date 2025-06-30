@@ -23,8 +23,12 @@ pip3 install flask_cors
 Para alcançar os 20 pontos, os jogadores possuem 
 diferentes estrategias de movimentação e tiro:
 
-- 1: Movimentação randomizada.
-- 2: De uma ponta à outra.
+- 1: Jogador Manual.
+- 2: Movimentação randomizada.
+- 3: De uma ponta à outra.
+- 4: Velocidade aumenta com pontos.
+- 5: Velocidade aumenta com tickrate do jogo.
+- 6: Teletransporte.
 ```
 
 ## Inserir Imagens de Obstáculos por rota de upload:
@@ -38,7 +42,14 @@ diferentes estrategias de movimentação e tiro:
 -Digite 'sim' no terminal do python para personalizar os obstaculos
 -Digite o nome do arquivo
 -Exemplo: tohou.png
--Obs: As imagens de obstaculos vão para a pasta de 'inimigos'
+-Obs: As imagens de obstaculos vão para a pasta de 'inimigos'. O arquivo deve ter formato .png.
+```
+
+## Adicionar Cores
+```bash
+-Insira um arquivo na pasta imagem, manualmente ou seguido o tutorial acima.
+-O nome do arquivo deve conter a cor, podendo ser em RGB ou uma cor principal.
+Exemplo: naveRed.png ou nave#02fffb.png, contendo o valor em hexa decimal (utilize o valor em hexa decimal, não em rgb).
 ```
 
 ## Atualizações:
