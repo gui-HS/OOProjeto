@@ -1,6 +1,8 @@
 Clique na imagem para ver uma demonstração no youtube:
 [![Watch the video](imagem/shooterGIF.gif)](https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S)
-Ou copie o link: https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S
+```bash
+Ou copie e coler o link: https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S
+```
 
 ## Sobre
 ```bash
