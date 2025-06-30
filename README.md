@@ -2,7 +2,9 @@
 ## Sobre
 ```bash
 O 'piupiu' é um simulador do gênero "Shoot 'em up".
-Seu objetivo é deduzir qual jogador alcançará 20 pontos primeiro.
+Você pode criar diversos jogadores e colocá-los em uma partida para decidir quem é o melhor!
+Ao final da simulação, será mostrado uma tabela de pontos, contendo os jogadores com mais
+pontos, vidas e os que concluíram sua partida em menos tempo.
 ```
 
 ## Instalação Necessária
@@ -15,6 +17,7 @@ pip3 install flask
 pip3 install flask_sqlalchemy
 pip3 install flask_cors
 ```
+
 ## Crie jogadores
 ```bash
 1- No arquivo player.txt, faça seu jogador
@@ -36,7 +39,7 @@ Exemplo: 1,2,3,4
          1,3,5
 
 ```
-## Estrategias
+## Estratégias
 ```bash
 Para alcançar os 20 pontos, os jogadores possuem 
 diferentes estrategias de movimentação e tiro:
