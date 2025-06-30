@@ -1,0 +1,92 @@
+@startuml
+' Player.py classes
+class Player {
+  + playerDB: Jogador
+  + color: str
+  + image: Surface
+  + rect: Rect
+  + pontos: int
+  + lifes: int
+  + estrategia: int
+  + vel: int
+  + platform_shoot: Group
+  + remove_shoot: list
+  + delay1: Delay
+  + delay2: Delay
+  + reiniciar: int
+  + antes_x: int
+  + antes_y: int
+  + __init__(x, y, playerID)
+  + check_keys()
+  + salvar_xy()
+  + restaurar_xy()
+  + update()
+  + isDead()
+  + shoot()
+  + collisionShots(obstacles_group)
+  + collisionObstacles(player, obstacles_group)
+}
+
+class Delay {
+  + previous_time: int
+  + __init__()
+  + delay(time: int): bool
+}
+
+class Shoot {
+  + image: Surface
+  + rect: Rect
+  + velocity_y: int
+  + __init__(x, y, width, height)
+  + update()
+}
+
+' ResultadoDaPartida.py
+class ResultadoDaPartida {
+  + id: int
+  + lifes: int
+  + strategy: int
+  + shotPoints: int
+  + points: int
+  + time: int
+  + __str__(): str
+  + json(): dict
+}
+
+' Obstacle.py
+class Obstacle {
+  - image: Surface
+  - rect: Rect
+  - velocity_y: int
+  + __init__(x, y, arquivo_imagem)
+  + update()
+}
+
+' CollisionObject.py
+class CollisionObject {
+  + destroy2Obj(obj, groupObj2): bool
+  + destroy2Group(groupObj1, groupObj2): bool
+  + destroyBothObj(groupObj1, groupObj2): bool
+}
+
+' Jogador.py
+class Jogador {
+  - id: int
+  - nome: str
+  - color: str
+  - pontos: int
+  - shotPoints: int
+  - lifes: int
+  - estrategia: int
+  + __str__(): str
+  + json(): dict
+}
+
+' Relationships
+Player "1" *-- "1" Jogador : playerDB
+Player "1" *-- "2" Delay : delay1, delay2
+Player "1" o-- "*" Shoot : platform_shoot
+Player -- CollisionObject : uses >
+Obstacle -- Player: collide
+Jogador "1" -- "*" ResultadoDaPartida : results
+@enduml
