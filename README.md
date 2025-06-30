@@ -1,4 +1,4 @@
-[![Video Title](https://img.youtube.com/vi/bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S/1.jpg)](https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S)
+[![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S)
 ## Sobre
 ```bash
 O 'piupiu' é um simulador do gênero "Shoot 'em up".
@@ -15,7 +15,27 @@ pip3 install flask
 pip3 install flask_sqlalchemy
 pip3 install flask_cors
 ```
+## Crie jogadores
+```bash
+1- No arquivo player.txt, faça seu jogador
+2- O primeiro atributo será o id (apenas siga a sequência, não pode haver repetidos)
+3- Os próximos atributos serão: Quantidade de vida, estrategia utilizada, pontos por tiro e a cor da nave.
+4- Tenha certeza que cada número está separado por vírgulas.
+5- Coloque uma linha em branco ao final do arquivo;
+Exemplo: 1, 10, 2, 20,Blue
+         2, 15, 3, 15,Red
 
+```
+
+## Faça batalhas
+```bash
+1- No arquivo batalhas.txt, insira o id dos players do arquivo player.txt.
+2- Note que, a cada linha, um grupo de jogadores será instanciado na partida.
+3- Coloque uma linha em branco ao final do arquivo.
+Exemplo: 1,2,3,4
+         1,3,5
+
+```
 ## Estrategias
 ```bash
 Para alcançar os 20 pontos, os jogadores possuem 
