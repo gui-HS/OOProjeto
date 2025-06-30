@@ -11,7 +11,7 @@ class Jogador(db.Model):
     estrategia = db.Column(db.Integer)
 
     def __str__(self):
-        return f'{self.id}, {self.nome}, {self.color}, {self.pontos}, {self.lifes}, {self.estrategia}'
+        return f'{self.id}, {self.nome}, {self.color}, {self.pontos}, {self.lifes}, {self.shotPoints}, {self.estrategia}'
 
     def json(self):
         return {
@@ -20,5 +20,6 @@ class Jogador(db.Model):
             "color":self.color,
             "pontos":self.pontos,
             "lifes":self.lifes,
-            "estrategia":self.estrategia
+            "estrategia":self.estrategia,
+            "shotPoints":self.shotPoints
         }

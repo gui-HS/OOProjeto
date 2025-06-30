@@ -1,12 +1,13 @@
 from backend.config.config import *
-from backend.modelo.jogador import *
-from backend.modelo.shoot import *
+from backend.modelo import *
 
 @app.route("/listar/<string:classe>")
 def listar(classe):
     dados = None
     if classe == "Jogador":
-       dados = db.session.query(Jogador).all()  
+       dados = db.session.query(Jogador.Jogador).all()  
+    elif classe == "ResultadoDaPartida":
+       dados = db.session.query(ResultadoDaPartida.ResultadoDaPartida).all()  
     if dados:
       lista_jsons = [x.json() for x in dados]
 

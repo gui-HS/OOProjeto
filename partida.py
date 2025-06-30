@@ -212,5 +212,7 @@ class Partida:
             db.session.commit()
 
 if __name__ == "__main__":
+    db.session.query(Jogador.Jogador).delete() #Delete all players from database
+    db.session.commit() #Save changes
     Partida().addPlayers() #Add players to database
     Partida().partida() #Iniciate match based on the configuration file batalhas.txt
