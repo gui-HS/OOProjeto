@@ -1,4 +1,4 @@
-[![Video Title](https://img.youtube.com/vi/bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S/0.jpg)](https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S)
+[![Video Title](https://img.youtube.com/vi/bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S/1.jpg)](https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S)
 ## Sobre
 ```bash
 O 'piupiu' é um simulador do gênero "Shoot 'em up".
