@@ -1,9 +1,9 @@
 Clique na imagem para ver uma demonstração no youtube:
-[![Watch the video](imagem/shooterGIF.gif)](https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S)
+[![Watch the video](imagem/shooterGIF.gif)](https://www.youtube.com/watch?v=bOsZc-12O0o)
 
 ## Ou copie e cole o link:
 ```bash
-https://www.youtube.com/watch?v=bOsZc-12O0o&list=PLveJQlIU8i6raECh2pbosHjOFCBr-wg3S
+(https://www.youtube.com/watch?v=bOsZc-12O0o
 ```
 
 ## Sobre
